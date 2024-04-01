@@ -6,6 +6,7 @@ public class Main2
     {
         String myArabicName="\u0623\u0633\u0627\u0645\u06C3";
         String wavingEmoji="\uD83D\uDC4B";
+        // In Java, the length() method of the String class returns an integer value representing the number of characters (Unicode code units) in the string
         int arabicNameLength=myArabicName.length();
         System.out.println("Hi \uD83D\uDC4B , My Name is "+ "\""+myArabicName+"\"");
         System.out.println("My Arabic name length is : "+arabicNameLength);
