@@ -1,0 +1,45 @@
+import java.util.Random;
+
+public class Main2
+{
+    public static void main(String[] args)
+    {
+        String myArabicName="\u0623\u0633\u0627\u0645\u06C3";
+        String wavingEmoji="\uD83D\uDC4B";
+        int arabicNameLength=myArabicName.length();
+        System.out.println("Hi \uD83D\uDC4B , My Name is "+ "\""+myArabicName+"\"");
+        System.out.println("My Arabic name length is : "+arabicNameLength);
+        System.out.println("Waving Emoji Length Is : "+wavingEmoji.length());
+
+       dataTypePreference();
+
+
+
+    }
+
+    public static void dataTypePreference()
+    {
+
+        Random random=new Random();
+        var randomNumber=random.nextLong(Long.MAX_VALUE) +1;
+        System.out.print("the number generated is : "+ randomNumber+" and ");
+
+        if (randomNumber <= Byte.MAX_VALUE && randomNumber >=Byte.MIN_VALUE) {
+            System.out.println("preference type is Byte");
+        }
+        if  (randomNumber >= Short.MIN_VALUE && randomNumber <=Short.MAX_VALUE) {
+            System.out.println("preference type is Short");
+        }
+
+        else if (randomNumber <= Integer.MAX_VALUE && randomNumber >=Integer.MIN_VALUE) {
+            System.out.println("preference type is Integer");
+        }
+
+        else  {
+            System.out.println("preference type is Long");
+        }
+
+
+
+    }
+}
