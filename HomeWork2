@@ -89,4 +89,37 @@ public class Prog5 {
         return c;
     }
 }
+public class prog3
+{
+
+
+        public static void main(String[] args) {
+            String[] array = {"Osama", "Ahmad", "Mike", "Mahboob", "Osama"};
+
+            // Iterate through the array
+            int uniqueCount = 0;
+            for (int i = 0; i < array.length; i++) {
+                boolean isDuplicate = false;
+
+                for (int j = 0; j < i; j++) {
+                    if (array[i].equals(array[j])) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                if (!isDuplicate) {
+                    array[uniqueCount] = array[i];
+                    uniqueCount++;
+                }
+            }
+
+
+            for (int i = 0; i < uniqueCount; i++) {
+                System.out.println(array[i]);
+            }
+        }
+    }
+
+
 
