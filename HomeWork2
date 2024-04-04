@@ -140,7 +140,7 @@ public class Prog6
             {
                 if (a[j]<a[i])
                 {
-                    int temp=a[j];
+                    int temp=a[i];
                     a[i]=a[j];
                     a[j]=temp;
                 }
