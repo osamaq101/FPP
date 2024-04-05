@@ -1,0 +1,98 @@
+public class Customer {
+    String firstName;
+    String lastName;
+    String socSecurityNum;
+    Address billingAddress;
+    Address shippingAddress;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSocSecurityNum() {
+        return socSecurityNum;
+    }
+
+    public void setSocSecurityNum(String socSecurityNum) {
+        this.socSecurityNum = socSecurityNum;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public Customer(String firstName, String lastName, String socSecurityNum) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.socSecurityNum = socSecurityNum;
+    }
+
+    public Address getBillingAddress() {
+        return this.billingAddress;
+    }
+
+    public String toString()
+    {
+        return "[" + firstName + ", " + lastName + ", " + "ssn: " + socSecurityNum
+                + "]";
+
+    }
+
+    public static void main(String[] args)
+    {
+        Customer c1=new Customer("Osama","Quttriyeh","100447880");
+        Address address=new Address("b street","Chicago","1124");
+        c1.setBillingAddress(address);
+
+        Customer c2=new Customer("Mahboub","Quttriyeh","100447880");
+        Address address2=new Address("a street","Chicago","1114");
+        c2.setBillingAddress(address2);
+
+        Customer c3=new Customer("Henok","Quttriyeh","100447880");
+        Address address3=new Address("c street","Fairfield","1134");
+        c3.setBillingAddress(address3);
+
+        Customer[]  data=new Customer[]{c3,c2,c1};
+
+        for (var c:data)
+        {
+            if(c.billingAddress.city=="Chicago")
+            System.out.println(c);
+        }
+
+
+    }
+
+}
+public class Address
+{
+    String street,city,zipcode;
+    public Address(String street, String city, String zipcode) {
+        this.street = street;
+        this.city = city;
+        this.zipcode = zipcode;
+    }
+
+
+}
+
