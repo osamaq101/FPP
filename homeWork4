@@ -1,20 +1,56 @@
+import java.util.Arrays;
+
 public class Recursive
 {
 
         public static void main(String[] args) {
             int number = 1234;
             displayDigitsInReverseOrder(number);
+            System.out.print( "\n Number of the digits in the number is : " +countDigits(number));
+            System.out.println(arraySummation(new int[]{1,2,0},2));
         }
 
         public static void displayDigitsInReverseOrder(int n) {
             if (n < 10) {
-                
+
                 System.out.print(n + " ");
             } else {
-                
+
                 System.out.print(n % 10 + " ");
+
                 displayDigitsInReverseOrder(n / 10);
+
             }
+        }
+    public static int countDigits(int n) {
+
+        if (n < 10) {
+            return 1;
+        } else {
+
+            return 1 + countDigits(n / 10);
         }
     }
 
+    public static int arraySummation(int[] n,int length)
+    {
+
+
+      int sum=0;
+        if (length<= 0)
+        {
+            return 0;
+        }
+        else
+        {
+
+
+
+           return n[length-1]+ arraySummation(n,length-1);
+
+        }
+
+
+    }
+
+    }
