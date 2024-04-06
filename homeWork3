@@ -96,3 +96,213 @@ public class Address
 
 }
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
+import java.util.Scanner;
+
+public class HeartRates
+{
+    String firstName;
+    String  lastName;
+    LocalDate dateOfBirth;
+
+    private static final int RHR=70;
+    private static final double LB=0.5;
+    private static final double UB=0.85;
+
+    public HeartRates(String firstName, String lastName, LocalDate dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    private int calculateAge()
+    {
+        LocalDate today = LocalDate.now();
+        var year =Period.between(this.dateOfBirth, today);
+        return year.getYears() ;
+
+    }
+    public int calculateMaximumHR()
+    {
+        return 220 -calculateAge();
+    }
+    public double calculateAverageHearRate()
+    {
+        return RHR-calculateMaximumHR();
+    }
+    public double LBTHR()
+    {
+       return (calculateAverageHearRate() *LB)+RHR;
+    }
+    public double UBTHR()
+    {
+        return (calculateAverageHearRate() *UB)+RHR;
+    }
+    public void targetHeartRate()
+    {
+        System.out.println("The target heart rate is between : "+LBTHR()+" and "+UBTHR());
+    }
+    @Override
+    public String toString()
+    {
+        return "first name : " + firstName +"\n last name : "+lastName+"\n date of birth : " +getDateOfBirth()+"\n Age :" +calculateAge()
+               +"\n Maximum heart rate is : " + calculateMaximumHR();
+    }
+
+    public static void main(String[] args)
+    {
+        HeartRates hr=new HeartRates("Osama","Quttriyeh",LocalDate.parse("1985-04-12"));
+        //hr.calculateAge();
+        Scanner SC=new Scanner(System.in);
+        System.out.println("Please enter your first name: ");
+        hr.firstName = SC.nextLine();
+        System.out.println("Please enter your last name: ");
+        hr.lastName = SC.nextLine();
+        System.out.println("Please enter your birthday \"\n" +
+                "                    + \"in yyyy-MM-dd format (e.g. 1980-9-28): \": ");
+
+        hr.dateOfBirth=LocalDate.parse(SC.nextLine());
+        hr.targetHeartRate();
+        System.out.println(hr.toString());
+
+
+
+    }
+}
+import java.util.Scanner;
+
+
+final class Triangle {
+    private final double base;
+    private final double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    public double getBase() {
+        return base;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double computeArea() {
+        return 0.5 * base * height;
+    }
+}
+
+
+final class Rectangle {
+    private final double width;
+    private final double length;
+
+    public Rectangle(double width, double length) {
+        this.width = width;
+        this.length = length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public double computeArea() {
+        return width * length;
+    }
+}
+
+
+final class Circle {
+    private final double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public double computeArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter C for Circle");
+        System.out.println("Enter R for Rectangle");
+        System.out.println("Enter T for Triangle");
+
+        char choice = scanner.nextLine().charAt(0);
+
+        switch (choice) {
+            case 'C':
+            case 'c':
+                System.out.println("Enter the radius of the Circle");
+                double circleRadius = scanner.nextDouble();
+                Circle circle = new Circle(circleRadius);
+                System.out.println("The area of Circle is: " + circle.computeArea());
+                break;
+            case 'R':
+            case 'r':
+                System.out.println("Enter the width of the Rectangle");
+                double rectWidth = scanner.nextDouble();
+                System.out.println("Enter the length of the Rectangle");
+                double rectLength = scanner.nextDouble();
+                Rectangle rectangle = new Rectangle(rectWidth, rectLength);
+                System.out.println("The area of Rectangle is: " + rectangle.computeArea());
+                break;
+            case 'T':
+            case 't':
+                System.out.println("Enter the base of the Triangle");
+                double triBase = scanner.nextDouble();
+                System.out.println("Enter the height of the Triangle");
+                double triHeight = scanner.nextDouble();
+                Triangle triangle = new Triangle(triBase, triHeight);
+                System.out.println("The area of Triangle is: " + triangle.computeArea());
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
+
+        scanner.close();
+    }
+}
+
+
