@@ -1,0 +1,187 @@
+// Question number 2
+
+import java.util.Scanner;
+
+public class Main4
+{
+
+    public static void main(String[] args)
+    {
+        Professors p3 = new Professors(3);
+        p3.salary=1;
+        Professors p2 = new Professors(2);
+        p2.salary=1;
+        Professors p1 = new Professors(2);
+        p3.salary=1;
+        Secretary s=new Secretary(55);
+        s.salary=1;
+        Secretary s2=new Secretary(55);
+        s2.salary=1;
+
+        DeptEmployee[] department = new DeptEmployee[5];
+        department[0]=p3;
+        department[1]=p1;
+        department[2]=p2;
+        department[3]=s;
+        department[4]=s2;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("do you wish to see all the total employees salary in the department? :");
+        if (sc.nextLine().equals("Y")) {
+            double sum=0;
+            for (DeptEmployee e : department) {
+                 sum+=e.computeSalary();
+                System.out.println(sum);
+            }
+            System.out.println("Total Salaries in the department is equal to :"+sum);
+        }
+
+    }
+}
+public class Secretary extends DeptEmployee
+{
+    double overtimeHours;
+
+    public Secretary(int overtimeHours)
+    {
+        this.overtimeHours=overtimeHours;
+    }
+    public double getOvertimeHours() {
+        return overtimeHours;
+    }
+
+    public void setOvertimeHours(double overtimeHours) {
+        this.overtimeHours = overtimeHours;
+    }
+
+    @Override
+    public double computeSalary()
+    {
+        return salary+overtimeHours*12;
+    }
+}
+public class Professors extends DeptEmployee
+{
+    int numberOfPublications;
+
+ Professors (int numberOfPublications)
+ {
+     this.numberOfPublications=numberOfPublications;
+ }
+
+
+}
+import java.time.LocalDate;
+
+public class DeptEmployee
+{
+    String name;
+    LocalDate hireDate;
+
+    double salary;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
+    }
+    public double computeSalary ()
+    {
+        return salary;
+    }
+}
+
+// Question number 1
+
+public class Circle extends Shape
+{
+  double radius;
+  Circle (double radius,String color)
+  {
+      super(color);
+      this.radius=radius;
+  }
+    @Override
+    double calculateArea() {
+        return Math.PI * radius*radius;
+    }
+
+    @Override
+    double calculatePerimeter() {
+         return 2*Math.PI*radius;
+    }
+}
+public class Rectangle extends Shape
+{
+
+    double width ;
+    double height ;
+    Rectangle (String color,double width ,double height)
+    {
+     super (color);
+     this.width=width;
+     this.height=height;
+    }
+
+    @Override
+    double calculateArea() {
+        return width*height;
+    }
+
+    @Override
+    double calculatePerimeter() {
+        return  2 * width + 2 * height;
+    }
+}
+
+public abstract class Shape
+{
+    String color;
+    Shape(String color)
+    {
+        this.color=color;
+    }
+
+    abstract double calculateArea();
+    abstract double calculatePerimeter();
+
+
+}
+public class Square extends Rectangle
+{
+    double side;
+    Square (double side,String color)
+    {
+        super(color,side,side);
+        this.side=side;
+    }
+
+}
+public class Main3
+{
+    public static void main(String[] args)
+    {
+        printTotal(new Shape[]{new Circle(2, "Red"),
+                new Rectangle("Green", 3, 4), new Square(2, "Blue")});
+
+    }
+    public static void printTotal(Shape[] shapes)
+    {
+        Shape[] s=shapes;
+
+        for (Shape c:s)
+        {
+            System.out.println("Calculated Perimeter for :"+c.getClass().getSimpleName()+" "+
+                    c.calculatePerimeter() +" Color  is :"+c.color);
+        }
+    }
+}
