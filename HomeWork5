@@ -421,3 +421,58 @@ public class SalariedEmployee  extends  Employeee{
     }
 }
 
+// question 5
+
+import java.util.Objects;
+
+public class Computer {
+
+    String manufacturer;
+    String processor;
+    int ramSize;
+    double processorSpeed;
+
+    @Override
+    public String toString()
+    {
+        return "Computer {manufacturer ="+ manufacturer+ " processor="+processor+" ramSize=" +ramSize
+                + " processorSpeed="+ processorSpeed +" }";
+    }
+
+    public Computer(String manufacturer, String processor, int ramSize, double processorSpeed) {
+        this.manufacturer = manufacturer;
+        this.processor = processor;
+        this.ramSize = ramSize;
+        this.processorSpeed = processorSpeed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Computer computer = (Computer) o;
+        return ramSize == computer.ramSize && Double.compare(processorSpeed, computer.processorSpeed) == 0 && Objects.equals(manufacturer, computer.manufacturer) && Objects.equals(processor, computer.processor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(manufacturer, processor, ramSize, processorSpeed);
+    }
+
+    public static void main(String[] args) {
+
+        Computer c1=new Computer("IBM","Intel",16,5.2);
+        Computer c2=new Computer("Sony","AMD",32,3.2);
+
+
+        System.out.println("Are computer1 and computer2 equal? " + c1.equals(c2));
+
+        System.out.println("HashCode of computer1: " + c1.hashCode());
+        System.out.println("HashCode of computer2: " + c2.hashCode());
+
+        System.out.println("Are the hashCodes equal? " + (c1.hashCode() == c2.hashCode()));
+
+    }
+}
+
+
