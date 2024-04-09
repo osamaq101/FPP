@@ -185,3 +185,61 @@ public class Main3
         }
     }
 }
+
+// question number 3
+
+public abstract class Driver
+{
+    public abstract void getFigure();
+    public static void main(String[] args)
+    {
+
+        Driver[] drivers=new Driver[]{new DownwardHat(),new DownwardHat(),new UpwardHat(),new FaceMaker(),new Vertical()};
+
+        for (Driver d:drivers)
+        {
+
+             System.out.print (d.getClass().getSimpleName()+": ");
+            d.getFigure();
+        }
+    }
+
+}
+
+public interface Figure
+{
+    abstract void getFigure();
+}
+public class UpwardHat extends Driver implements Figure{
+    @Override
+    public void getFigure()
+    {
+        System.out.println("\\/");
+    }
+
+
+}
+public class FaceMaker extends Driver implements Figure
+{
+    @Override
+    public void getFigure() {
+        System.out.println(":)");
+    }
+}
+public class Vertical extends Driver implements Figure
+{
+    @Override
+    public void getFigure()
+    {
+        System.out.println("||");
+    }
+}
+public class DownwardHat extends Driver implements Figure
+{
+
+    @Override
+    public void getFigure() {
+        System.out.println("/"+"\\");
+    }
+}
+
