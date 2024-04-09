@@ -243,3 +243,181 @@ public class DownwardHat extends Driver implements Figure
     }
 }
 
+
+// Question number 5
+
+public class Main5 {
+
+    public static void main(String[] args)
+    {
+      Employeee[] employeee=new Employeee[]
+              {
+                new ComissionEmployee("Osama","Qutt","12334123",100,22.2),
+                      new BasePlusCommisionEmployee("Mike","Jones","234234",33.3,20)  ,
+                      new HourlyEmployee("Kate","Austin","34234",50000,80),
+                      new SalariedEmployee( "Rachel","Green","4334344",1000)
+
+              };
+
+           double totalEmployeesSalaries=0.0;
+
+           for (Employeee e:employeee)
+           {
+               totalEmployeesSalaries+=e.getPayment();
+               System.out.println("emplyee type: "+e.getClass().getSimpleName()+" His/Her Salary is : "+ e.getPayment());
+           }
+
+           System.out.println("Employees total Salaries is : " +totalEmployeesSalaries);
+    }
+}
+import java.time.LocalDate;
+
+public abstract class Employeee
+{
+    private String firsName;
+    private String lastName;
+
+    public Employeee(String firsName, String lastName, String socialSecurtiyNumber) {
+        this.firsName = firsName;
+        this.lastName = lastName;
+        this.socialSecurtiyNumber = socialSecurtiyNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Employeee{" +
+                "firsName='" + firsName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", socialSecurtiyNumber='" + socialSecurtiyNumber + '\'' +
+                '}';
+    }
+
+    public abstract double getPayment() ;
+    private String socialSecurtiyNumber;
+
+    public String getFirsName() {
+        return firsName;
+    }
+
+    public void setFirsName(String firsName) {
+        this.firsName = firsName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSocialSecurtiyNumber() {
+        return socialSecurtiyNumber;
+    }
+
+    public void setSocialSecurtiyNumber(String socialSecurtiyNumber) {
+        this.socialSecurtiyNumber = socialSecurtiyNumber;
+    }
+}
+import java.util.Objects;
+
+public class ComissionEmployee extends   Employeee{
+
+    public double getGrossSale() {
+        return grossSale;
+    }
+
+    public double getComissionRate() {
+        return comissionRate;
+    }
+
+    private double grossSale;
+    private double comissionRate;
+
+    public ComissionEmployee(String firsName, String lastName, String socialSecurtiyNumber, double grossSale, double comissionRate) {
+        super(firsName, lastName, socialSecurtiyNumber);
+        this.grossSale = grossSale;
+        this.comissionRate = comissionRate;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ComissionEmployee{" +
+                "grossSale=" + grossSale +
+                ", comissionRate=" + comissionRate +
+                '}';
+    }
+
+    @Override
+    public double getPayment() {
+        return grossSale * comissionRate ;
+    }
+}
+public class BasePlusCommisionEmployee extends ComissionEmployee
+{
+    double baseSalary;
+
+    @Override
+    public String toString() {
+        return "BasePlusCommisionEmployee{" +
+                "baseSalary=" + baseSalary +
+                '}';
+    }
+
+    public BasePlusCommisionEmployee(String firsName, String lastName, String socialSecurtiyNumber, double grossSale, double comissionRate) {
+        super(firsName, lastName, socialSecurtiyNumber, grossSale, comissionRate);
+    }
+
+    @Override
+    public double getPayment()
+    {
+       return baseSalary + (getGrossSale()*getComissionRate());
+    }
+}
+public class HourlyEmployee extends Employeee{
+
+    private double wage;
+    private double hours;
+
+    HourlyEmployee(String firsName,String lastName,String socialSecurtiyNumber,double wage,double hours)
+    {
+        super (firsName,lastName,socialSecurtiyNumber);
+        this.wage=wage;
+        this.hours=hours;
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return "HourlyEmployee { wage = "+ wage+" , hours="+hours+" }";
+    }
+
+    @Override
+    public double  getPayment()
+    {
+        return   wage * hours;
+
+    }
+}
+public class SalariedEmployee  extends  Employeee{
+
+    private double weeklySalary;
+
+    public SalariedEmployee(String firsName, String lastName, String socialSecurtiyNumber, double weeklySalary) {
+        super(firsName, lastName, socialSecurtiyNumber);
+        this.weeklySalary = weeklySalary;
+    }
+
+    //    SalariedEmployee (double weeklySalary)
+//    {
+//        super();
+//        this.weeklySalary=weeklySalary;
+//    }
+    @Override
+    public double getPayment() {
+        return  weeklySalary;
+    }
+}
+
