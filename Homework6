@@ -1,1 +1,62 @@
 //Home Work – Lesson -6 – Inner class
+public class MyTable {
+    private Entry[] entries;
+
+    public MyTable() {
+        entries = new Entry[26];
+    }
+
+    public void add(char c, String s) {
+        int index = c - 'a';
+        if (index < 0 || index >= 26) {
+            throw new IllegalArgumentException("Character must be between 'a' and 'z'");
+        }
+        Entry entry = new Entry(c, s);
+        entries[index] = entry;
+    }
+
+    public String get(char c) {
+        int index = c - 'a';
+        if (index < 0 || index >= 26 || entries[index] == null) {
+            return null;
+        }
+        return entries[index].getString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Entry entry : entries) {
+            if (entry != null) {
+                sb.append(entry.toString()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    private class Entry {
+        private char character;
+        private String string;
+
+        public Entry(char character, String string) {
+            this.character = character;
+            this.string = string;
+        }
+
+        public String getString() {
+            return string;
+        }
+
+        @Override
+        public String toString() {
+            return character + "->" + string;
+        }
+    }
+
+    public static void main(String[] args) {
+        MyTable t = new MyTable();
+        t.add('a', "Andrew");
+        t.add('b', "Billy");
+        t.add('w', "Willie");
+        System.out.println(t);
+    }
