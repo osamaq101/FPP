@@ -1,0 +1,104 @@
+import java.util.Arrays;
+
+public class PersonsStingList
+{
+
+        private final int INITIAL_LENGTH=4;
+        private  Persons []  currentArray;
+
+        private int numOfElements;
+
+        PersonsStingList()
+        {
+                currentArray=new Persons[INITIAL_LENGTH];
+                numOfElements =0;
+        }
+        public void add(Persons p)
+        {
+                if (p==null) return;
+                if (numOfElements ==currentArray.length)
+                {
+                        resize();
+                }
+                currentArray[numOfElements]=p;
+
+                numOfElements++;
+        }
+
+        public void resize()
+        {
+                int newLen=currentArray.length * 2;
+                Persons [] temp=new Persons[newLen];
+                System.arraycopy(currentArray,0,temp,0,currentArray.length);
+                currentArray=temp;
+        }
+        public void insert(Persons p,int pos)
+        {
+                if (p==null) return ;
+                if (pos > currentArray.length || pos <0) return;
+                if (numOfElements ==currentArray.length)
+                {
+                        resize();
+                }
+                Persons [] newPersons=new Persons[currentArray.length];
+                System.arraycopy(currentArray,0,newPersons,0,pos);
+                newPersons[pos]=p;
+                System.arraycopy(currentArray,pos,newPersons,pos+1,currentArray.length-(pos+1));
+                currentArray=newPersons;
+                numOfElements++;
+        }
+
+        public boolean remove(Persons p)
+        {
+                if (p==null) return  false;
+                int index=-1;
+                for(int i=0;i<=currentArray.length;i++)
+                {
+                        if (((Persons)currentArray[i]).getLast().equals(p.getLast()) )
+                        {
+                                index=i;
+                        }
+                }
+                Persons [] newPersons=new Persons[currentArray.length];
+                System.arraycopy(currentArray,0,newPersons,0,index);
+                System.arraycopy(currentArray,index+1,newPersons,index ,currentArray.length-(index+1));
+                currentArray=newPersons;
+                numOfElements--;
+                return true;
+
+        }
+        public int size()
+        {
+                return numOfElements;
+        }
+
+        public Object clone ()
+        {
+                Persons [] temp= Arrays.copyOf(currentArray,numOfElements);
+                return  temp;
+        }
+        public String toString() {
+                StringBuilder sb = new StringBuilder("\n[");
+                for (int i = 0; i < numOfElements - 1; ++i) {
+                        sb.append(currentArray[i] + ", ");
+                }
+                sb.append(currentArray[numOfElements-1]+"]");
+
+                return sb.toString();
+        }
+
+        public static void main(String[] args)
+        {
+
+                Persons p=new Persons("Quttriyeh","Osama",39);
+                Persons p3=new Persons("Mahboob","Osama",35);
+                PersonsStingList  p2=new PersonsStingList();
+                p2.add(p);;
+                p2.add(p3);
+
+                System.out.println(p2.toString());
+
+
+        }
+
+}
