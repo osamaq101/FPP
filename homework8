@@ -102,3 +102,192 @@ public class PersonsStingList
         }
 
 }
+//problem 3
+
+import java.util.*;
+
+public class Marketing {
+    @Override
+    public String toString() {
+        return "MarketingArrayList{" +
+                "employeename='" + employeename + '\'' +
+                ", productname='" + productname + '\'' +
+                ", salesamount=" + salesamount +
+                '}';
+    }
+
+    String employeename;
+    String productname;
+
+    double salesamount;
+    private final int INITIAL_SIZE = 4;
+    private int numOfElements;
+
+    private Marketing[] currentArray;
+
+    public Marketing()
+    {
+        this.numOfElements = 0;
+        this.currentArray = new Marketing[INITIAL_SIZE];
+    }
+    public Marketing(String employeeName, String ProductName, double saleAmount) {
+
+        productname = ProductName;
+        employeename = employeeName;
+        salesamount = saleAmount;
+    }
+
+    public Marketing gets(int i) {
+        if (i < 0 || i >= numOfElements) {
+            return null;
+        }
+        return currentArray[i];
+    }
+
+    public boolean find(Marketing m) {
+        if (m == null) return false;
+        for (int i = 0; i < numOfElements; i++) {
+            if (currentArray[i].equals(m))
+                return true;
+        }
+        return false;
+    }
+
+    public void addd(Marketing m) {
+        if (m == null) return;
+        if (currentArray.length == numOfElements) {
+            resize();
+        }
+        currentArray[numOfElements] = m;
+        numOfElements++;
+    }
+
+    public void resize() {
+        Marketing[] newArr = new Marketing[currentArray.length * 2];
+        System.arraycopy(currentArray, 0, newArr, 0, currentArray.length * 2);
+        currentArray = newArr;
+    }
+
+    public void insert(int pos, Marketing m) {
+        if (pos > currentArray.length || pos < 0) return;
+        Marketing[] newArray = new Marketing[currentArray.length + 1];
+
+        System.arraycopy(currentArray, 0, newArray, 0, pos);
+        newArray[pos] = m;
+        System.arraycopy(currentArray, pos, newArray, pos + 1, currentArray.length - (pos + 1));
+        currentArray = newArray;
+        numOfElements++;
+    }
+
+    public int size() {
+        return numOfElements;
+    }
+
+    public Object clone() {
+        Marketing[] temp = Arrays.copyOf(currentArray, numOfElements);
+        return temp;
+    }
+
+    public boolean remove(Marketing m) {
+        if (m == null) return false;
+        int index = -1;
+        for (int i = 0; i < currentArray.length; i++) {
+            if (currentArray[i] == m) {
+                index = i;
+            }
+        }
+        Marketing[] newArr = new Marketing[currentArray.length];
+        System.arraycopy(currentArray, 0, newArr, 0, index);
+        System.arraycopy(currentArray, index, newArr, index + 1, currentArray.length - (index + 1));
+        currentArray = newArr;
+        numOfElements--;
+        return true;
+    }
+
+
+    public static void main(String[] args) {
+
+        Marketing m1=new Marketing("Osama","ps3",1000);
+        Marketing m2=new Marketing("Ahmad","PC",222);
+        Marketing m3=new Marketing("zAbraham","ps4",9999);
+        Marketing m4=new Marketing("Locus","ps4",7050);
+
+        Marketing myList=new Marketing();
+
+        myList.addd(m1);
+        myList.addd(m2);
+        myList.addd(m3);
+        myList.addd(m4);
+
+        List<Marketing> marketList=Arrays.asList(myList.currentArray);
+        Collections.sort(marketList,(mk1,mk2)-> {return Double.compare(mk1.salesamount, mk2.salesamount) ;});
+
+
+
+          for (var x:marketList)
+          {
+              System.out.println(x);
+          }
+          List <Marketing> newFilteredList=listMoreThan1000(marketList);
+        Collections.sort (newFilteredList,(r1,r2)->
+         {
+             if (r1!=null)
+             return r1.employeename.compareTo(r2.employeename);
+             else
+                 return 0;
+
+         });
+        for (var mm:newFilteredList)
+        {
+            if (mm!=null)
+            System.out.println("employees with over 100 :" +mm);
+        }
+
+    }
+
+    public  static List<Marketing> listMoreThan1000(List<Marketing> m)
+    {
+        List<Marketing> newList=new ArrayList<>();
+        Marketing m2=new Marketing();
+
+        for (var e:m)
+        {
+            if (e.salesamount>1000)
+            {
+                m2.addd(e);
+            }
+        }
+        List<Marketing> newMarketingList=Arrays.asList(m2.currentArray);
+        return newMarketingList;
+    }
+    public static   class SalesComparator implements Comparator<Marketing>
+    {
+
+
+        @Override
+        public int compare(Marketing o1, Marketing o2) {
+            return 0;
+        }
+
+
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Marketing that = (Marketing) o;
+        return Double.compare(salesamount, that.salesamount) == 0  ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeename, productname, salesamount);
+    }
+//    public int compare (Marketing m1, Marketing m2)
+//    {
+//
+//        return Double.compare(m1.salesamount, m2.salesamount);
+//
+//    }
+
+}
