@@ -1,1 +1,79 @@
 
+public class ArrayQueueImpl {
+    private int[] arr = new int[10];
+    private int front = -1;
+    private int rear = 0;
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        return arr[front];
+    }
+
+    public void enqueue(int obj) {
+        if (rear == arr.length) {
+            resize();
+        }
+        arr[rear++] = obj;
+        if (front == -1) {
+            front = 0;
+        }
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        int dequeuedElement = arr[front];
+        if (front == rear - 1) { 
+            front = -1;
+            rear = 0;
+        } else {
+            front++;
+        }
+        return dequeuedElement;
+    }
+
+    public boolean isEmpty() {
+        return front == -1;
+    }
+
+    public int size() {
+        if (isEmpty()) {
+            return 0;
+        }
+        return rear - front;
+    }
+
+    private void resize() {
+        int newSize = arr.length * 2;
+        int[] newArr = new int[newSize];
+        System.arraycopy(arr, front, newArr, 0, size());
+        arr = newArr;
+        rear = size();
+        front = 0;
+    }
+
+    public static void main(String[] args) {
+        ArrayQueueImpl queue = new ArrayQueueImpl();
+        
+        // Testing enqueue
+        for (int i = 1; i <= 15; i++) {
+            queue.enqueue(i);
+        }
+        
+      
+        System.out.println("Dequeuing elements:");
+        while (!queue.isEmpty()) {
+            System.out.println("Dequeued: " + queue.dequeue());
+            System.out.println("Peek: " + queue.peek());
+        }
+        
+        // Testing peek and dequeue on an empty queue
+        System.out.println("Peek on empty queue: " + queue.peek());
+        System.out.println("Dequeue on empty queue: " + queue.dequeue());
+    }
+}
