@@ -1,1 +1,66 @@
 
+import java.util.*;
+public class Admin {
+    public static HashMap<Key, Student> processStudents(List<Student> students) {
+
+        HashMap<Key,Student> hashMap=new HashMap<>();
+       for (Student std:students) {
+           Key k = new Key(std.getFirstName(), std.getLastName());
+           hashMap.put(k, std);
+       }
+
+        return hashMap;
+    }
+    public static double computeAverageGPA(HashMap<Key,Student> maps){
+        //implements
+
+        if (maps.isEmpty()) return 0.0;
+
+        double totalGPA = 0.0;
+        for (var student : maps.values()) {
+            totalGPA += student.getGpa();
+        }
+        return totalGPA / maps.size();
+    }
+}
+
+
+mport java.util.Objects;
+
+public class Key {
+    private String firstName;
+    private String lastName;
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Key{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Key key = (Key) o;
+        return Objects.equals(firstName, key.firstName) && Objects.equals(lastName, key.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
+
+    public Key(String f, String l) {
+        this.firstName = f;
+        this.lastName = l;
+    }
+}
